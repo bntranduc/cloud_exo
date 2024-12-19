@@ -8,8 +8,13 @@ services:
     branch: master
     plan: free
     envVars:
-      DATABASE_URL: 
-        fromDatabase: cloud_exo_db
+      DATABASE_URL:
+        fromDatabase:
+          name: cloud_exo_db
+      API_SECRET:
+        sync: false # Demande manuelle pour les secrets dans le tableau de bord Render
+      NODE_ENV:
+        value: production
 
 databases:
   - name: cloud_exo_db
@@ -17,3 +22,11 @@ databases:
     plan: free
     databaseName: cloud_exo_db
     user: admin
+
+envVarGroups:
+  - name: common-env
+    envVars:
+      - key: APP_PORT
+        value: 3000
+      - key: LOG_LEVEL
+        value: info
